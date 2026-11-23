@@ -1,56 +1,765 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>KP VIP Tracker</title>
-<meta name="description" content="Every Kiwi Parlays analyst&#x27;s record, graded nightly from official final scores. Wins and losses count alike.">
-<meta name="theme-color" content="#0e0e0e">
-<link rel="canonical" href="https://kiwiparlays.github.io/kp-tracker/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Kiwi Parlays">
-<meta property="og:title" content="KP VIP Tracker">
-<meta property="og:description" content="Every Kiwi Parlays analyst&#x27;s record, graded nightly from official final scores. Wins and losses count alike.">
-<meta property="og:url" content="https://kiwiparlays.github.io/kp-tracker/">
-<meta property="og:image" content="https://kiwiparlays.github.io/kp-tracker/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="KP. logo">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="KP VIP Tracker">
-<meta name="twitter:description" content="Every Kiwi Parlays analyst&#x27;s record, graded nightly from official final scores. Wins and losses count alike.">
-<meta name="twitter:image" content="https://kiwiparlays.github.io/kp-tracker/og.png">
+<meta name="description" content="Every Kiwi Parlays VIP pick, graded from the final score. Real records, real units.">
+<meta property="og:title" content="Kiwi Parlays VIP Tracker"><meta property="og:description" content="Every VIP pick, graded from the final score. Real records, real units.">
+<meta property="og:image" content="og.png"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<style>[hidden]{display:none!important}html,body{margin:0;background:#0c0a10;color:#f4f0ea}body{padding:12px}@media(min-width:900px){body{padding:24px}}
+.kp .dash-select{appearance:auto;padding:8px 10px;border:1px solid rgba(244,240,234,.14);font:inherit}
+.dash-skeleton{min-height:80px;border-radius:14px;background:rgba(244,240,234,.04);animation:sk 1.4s ease-in-out infinite}@keyframes sk{50%{opacity:.5}}
+.kp-upd{position:relative;z-index:1;color:#7a7088;font-size:12px;text-align:center;margin:0}</style>
+<script src="d3.min.js"></script>
+<script>
+window.dash=(()=>{const C={},D={},R={},M=new WeakMap();let ready=false;
+const run=(id)=>{const r=R[id];if(!r||!ready)return;document.querySelectorAll('[data-draw="'+id+'"]').forEach((el)=>{try{if(typeof r==='function')r(el);else{if(!M.has(el))M.set(el,r.mount?r.mount(el):null);r.update&&r.update(el,M.get(el));}}catch(e){console.error('draw '+id,e);}});};
+return{calc(n,o){C[n]=o;},data(n){return D[n]||{status:'loading',data:[]};},
+draw(id,fn){if(fn)R[id]=fn;run(id);},setLink(id){try{history.replaceState(null,'','#'+id);}catch(e){}},
+async boot(url){try{const j=await(await fetch(url,{cache:'no-store'})).json();D.picks={status:'ok',data:j.rows};
+for(const[n,o]of Object.entries(C)){try{D[n]={status:'ok',data:o.fn(...o.inputs.map((i)=>D[i].data))};}catch(e){console.error(n,e);D[n]={status:'error',data:[]};}}
+const u=document.getElementById('kp-upd');if(u&&j.updated)u.textContent='Updated '+new Date(j.updated).toLocaleString(undefined,{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})+' · graded from final scores · '+j.rows.length+' picks';
+}catch(e){console.error(e);Object.keys(C).forEach((n)=>{D[n]={status:'error',data:[]};});}
+ready=true;Object.keys(R).forEach(run);}};})();
+</script>
 </head><body>
-<header><div class="wrap"><a class="logo" href="./" style="color:inherit;text-decoration:none">KP<b>.</b></a><nav class="tabs" aria-label="Pages"><a href="./" aria-current="page">VIP Tracker</a><a href="exclusive/">Exclusive Plays</a></nav></div></header>
-<main class="wrap">
-<h1>VIP Tracker</h1>
-<p class="lede">Every analyst's official picks, graded from official final scores. Losses count exactly like wins.</p>
-<p class="upd">Last updated Thu 19 Nov 2026, 12:50PM ET</p>
-<div class="key"><span><i style="background:var(--accent)"></i>Hit</span><span><i style="background:var(--miss);box-shadow:inset 0 0 0 1px rgba(244,241,232,.12)"></i>Miss</span><span><i style="background:var(--push)"></i>Push</span></div>
-<div class="board">
-<div class="thead"><div>Analyst</div><div>Record</div><div>Last 30 days</div><div>Last 10</div></div>
-<div class="card"><div class="nm">Whizbang<small>238 picks</small><span class="note">Heavy favourites: listed odds average about -804, so a high hit rate is expected.</span></div><div class="rec"><span class="lb">Record</span>195-43-0</div><div class="l30"><span class="lb">Last 30 days</span><span class="v">48-7-0</span></div><div class="l10"><span class="lb">Last 10</span><span class="form" title="last 10, newest on the right"><i class="W"></i><i class="W"></i><i class="W"></i><i class="W"></i><i class="W"></i><i class="W"></i><i class="W"></i><i class="W"></i><i class="W"></i><i class="W"></i></span></div></div>
-<div class="card"><div class="nm">Alp<small>3 picks</small></div><div class="rec"><span class="lb">Record</span>2-1-0</div><div class="l30"><span class="lb">Last 30 days</span><span class="v">2-1-0</span></div><div class="l10"><span class="lb">Last 10</span><span class="form" title="last 10, newest on the right"><i class="W"></i><i class="L"></i><i class="W"></i></span></div></div>
-<div class="card"><div class="nm">TB<small>29 picks</small></div><div class="rec"><span class="lb">Record</span>19-10-0</div><div class="l30"><span class="lb">Last 30 days</span><span class="v">5-2-0</span></div><div class="l10"><span class="lb">Last 10</span><span class="form" title="last 10, newest on the right"><i class="W"></i><i class="L"></i><i class="L"></i><i class="L"></i><i class="W"></i><i class="L"></i><i class="W"></i><i class="W"></i><i class="W"></i><i class="W"></i></span></div></div>
-<div class="card"><div class="nm">Hxmeless<small>191 picks</small></div><div class="rec"><span class="lb">Record</span>109-78-4</div><div class="l30"><span class="lb">Last 30 days</span><span class="v">3-6-0</span></div><div class="l10"><span class="lb">Last 10</span><span class="form" title="last 10, newest on the right"><i class="L"></i><i class="L"></i><i class="W"></i><i class="W"></i><i class="L"></i><i class="L"></i><i class="L"></i><i class="W"></i><i class="L"></i><i class="L"></i></span></div></div>
-<div class="card"><div class="nm">Free Plays<small>14 picks</small></div><div class="rec"><span class="lb">Record</span>8-6-0</div><div class="l30"><span class="lb">Last 30 days</span><span class="v">4-2-0</span></div><div class="l10"><span class="lb">Last 10</span><span class="form" title="last 10, newest on the right"><i class="W"></i><i class="W"></i><i class="L"></i><i class="W"></i><i class="W"></i><i class="W"></i><i class="L"></i><i class="L"></i><i class="W"></i><i class="W"></i></span></div></div>
-<div class="card"><div class="nm">Kiwi<small>662 picks</small></div><div class="rec"><span class="lb">Record</span>372-288-2</div><div class="l30"><span class="lb">Last 30 days</span><span class="v">61-52-1</span></div><div class="l10"><span class="lb">Last 10</span><span class="form" title="last 10, newest on the right"><i class="W"></i><i class="W"></i><i class="W"></i><i class="L"></i><i class="L"></i><i class="W"></i><i class="L"></i><i class="L"></i><i class="L"></i><i class="W"></i></span></div></div>
-<div class="card"><div class="nm">Taco Tuesday<small>9 picks</small></div><div class="rec"><span class="lb">Record</span>5-4-0</div><div class="l30"><span class="lb">Last 30 days</span><span class="v">4-0-0</span></div><div class="l10"><span class="lb">Last 10</span><span class="form" title="last 10, newest on the right"><i class="L"></i><i class="L"></i><i class="W"></i><i class="L"></i><i class="L"></i><i class="W"></i><i class="W"></i><i class="W"></i><i class="W"></i></span></div></div>
-<div class="card"><div class="nm">Exclusive Plays<small>89 picks</small></div><div class="rec"><span class="lb">Record</span>49-40-0</div><div class="l30"><span class="lb">Last 30 days</span><span class="v">1-5-0</span></div><div class="l10"><span class="lb">Last 10</span><span class="form" title="last 10, newest on the right"><i class="W"></i><i class="L"></i><i class="W"></i><i class="L"></i><i class="L"></i><i class="L"></i><i class="L"></i><i class="L"></i><i class="W"></i><i class="L"></i></span></div></div>
-<div class="card"><div class="nm">Sips<small>358 picks</small></div><div class="rec"><span class="lb">Record</span>195-163-0</div><div class="l30"><span class="lb">Last 30 days</span><span class="v">14-16-0</span></div><div class="l10"><span class="lb">Last 10</span><span class="form" title="last 10, newest on the right"><i class="W"></i><i class="W"></i><i class="L"></i><i class="L"></i><i class="L"></i><i class="L"></i><i class="W"></i><i class="L"></i><i class="L"></i><i class="W"></i></span></div></div>
-<div class="card"><div class="nm">Gaby<small>273 picks</small></div><div class="rec"><span class="lb">Record</span>137-132-4</div><div class="l30"><span class="lb">Last 30 days</span><span class="v">12-18-0</span></div><div class="l10"><span class="lb">Last 10</span><span class="form" title="last 10, newest on the right"><i class="W"></i><i class="L"></i><i class="L"></i><i class="L"></i><i class="L"></i><i class="W"></i><i class="L"></i><i class="W"></i><i class="L"></i><i class="W"></i></span></div></div>
-<div class="card"><div class="nm">Salvo<small>335 picks</small></div><div class="rec"><span class="lb">Record</span>168-167-0</div><div class="l30"><span class="lb">Last 30 days</span><span class="v">20-29-0</span></div><div class="l10"><span class="lb">Last 10</span><span class="form" title="last 10, newest on the right"><i class="W"></i><i class="L"></i><i class="L"></i><i class="W"></i><i class="W"></i><i class="W"></i><i class="L"></i><i class="L"></i><i class="L"></i><i class="W"></i></span></div></div>
-<div class="card"><div class="nm">Kurt<small>2 picks</small></div><div class="rec"><span class="lb">Record</span>1-1-0</div><div class="l30"><span class="lb">Last 30 days</span><span class="v">0-0-0</span></div><div class="l10"><span class="lb">Last 10</span><span class="form" title="last 10, newest on the right"><i class="W"></i><i class="L"></i></span></div></div>
-<div class="card"><div class="nm">GTR3<small>9 picks</small></div><div class="rec"><span class="lb">Record</span>4-5-0</div><div class="l30"><span class="lb">Last 30 days</span><span class="v">1-2-0</span></div><div class="l10"><span class="lb">Last 10</span><span class="form" title="last 10, newest on the right"><i class="L"></i><i class="W"></i><i class="W"></i><i class="L"></i><i class="L"></i><i class="W"></i><i class="L"></i><i class="L"></i><i class="W"></i></span></div></div>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap");
+/* KP VIP Tracker, cinematic dark: one committed look in either theme (ink ground, warm-white type,
+   KP purple accent, neon green for wins). Layout: hero + glass stat bar, tabs, glass cards. */
+.kp {
+  --ink: #0c0a10; --ink-2: #15121c; --warm: #f4f0ea; --warm-dim: #b9b2c4; --stone: #7a7088;
+  --kp-purple: #8b5cf6; --kp-purple-glow: rgba(139,92,246,.35); --kp-purple-soft: rgba(139,92,246,.10);
+  --kp-neon: #39ff14; --kp-pink: #e8a6c8; --glass: rgba(244,240,234,.035); --glass-line: rgba(244,240,234,.075);
+  --heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* the dashboard's own tokens, re-pointed so every chart and control sits on the dark ground */
+  --color-fg: var(--warm); --color-fg-muted: var(--warm-dim); --color-bg: var(--ink); --color-panel: var(--glass);
+  --color-border-line: var(--glass-line); --color-ok: #4ade80; --color-bad: #ff6b81; --color-warn: #fbbf24;
+  --cds-text-secondary: var(--warm-dim); --cds-chart-grid: rgba(244,240,234,.06); --cds-chart-axis: rgba(244,240,234,.22);
+  --cds-chart-reference: rgba(244,240,234,.32); --cds-chart-muted: rgba(244,240,234,.38);
+  --cds-surface-popover: #1b1724; --cds-border: rgba(244,240,234,.14); --cds-shadow-popover: 0 12px 40px rgba(0,0,0,.55);
+  color-scheme: dark;
+  position: relative; isolation: isolate; overflow: hidden;
+  background:
+    radial-gradient(1200px 520px at 12% -8%, rgba(139,92,246,.20), transparent 60%),
+    radial-gradient(900px 480px at 100% 0%, rgba(232,166,200,.08), transparent 55%),
+    var(--ink);
+  color: var(--warm); font-family: var(--body); font-weight: 400;
+  border-radius: 22px; padding: clamp(20px, 4vw, 44px) clamp(16px, 3.5vw, 40px) 40px;
+  display: flex; flex-direction: column; gap: 28px;
+}
+/* film grain + vignette */
+.kp::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.kp::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 35%, transparent 55%, rgba(12,10,16,.55) 100%); }
+.kp > * { position: relative; z-index: 1; }
+.kp-fx { position: absolute !important; inset: 0; z-index: 0 !important; pointer-events: none; opacity: .55; }
+.kp-fx canvas { width: 100%; height: 100%; display: block; }
+
+/* hero */
+.kp-head { display: flex; flex-direction: column; gap: 14px; padding-bottom: 4px; }
+.kp-over { font-size: 10px; font-weight: 500; letter-spacing: .32em; text-transform: uppercase; color: var(--warm-dim); display: flex; align-items: center; gap: 12px; }
+.kp-over::before { content: ""; width: 28px; height: 1px; background: linear-gradient(90deg, var(--kp-purple), transparent); }
+.kp-brand { display: flex; align-items: center; gap: 16px; }
+.kp-k { width: 46px; height: 46px; border-radius: 13px; flex: none; display: grid; place-items: center;
+  background: linear-gradient(145deg, #9d6bff, #6d28d9); color: #fff; font: italic 700 24px/1 var(--heading);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset, 0 10px 30px var(--kp-purple-glow); }
+.kp-title { margin: 0; font-family: var(--heading); font-weight: 300; font-size: clamp(32px, 5.2vw, 64px); line-height: 1.02; letter-spacing: -.01em; text-wrap: balance; }
+.kp-title em { font-style: italic; color: transparent; background: linear-gradient(100deg, #c4b5fd, var(--kp-pink)); -webkit-background-clip: text; background-clip: text; }
+.kp-lede { margin: 0; color: var(--warm-dim); max-width: 68ch; font-size: 15px; line-height: 1.65; font-weight: 300; }
+.kp-lede b { color: var(--warm); font-weight: 500; }
+.kp-statbar { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px; margin-top: 6px;
+  background: var(--glass-line); border: 1px solid var(--glass-line); border-radius: 18px; overflow: hidden;
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); min-height: 92px; }
+.kp-stat { background: rgba(12,10,16,.55); padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; min-width: 0; transition: background .3s; }
+.kp-stat:hover { background: rgba(139,92,246,.08); }
+.kp-stat .l { font-size: 9px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--stone); }
+.kp-stat .v { font-family: var(--heading); font-weight: 300; font-size: clamp(24px, 3vw, 34px); line-height: 1; font-variant-numeric: tabular-nums; }
+
+/* tabs */
+.kp-tabs { display: flex; gap: 6px; padding: 5px; border: 1px solid var(--glass-line); border-radius: 999px; background: var(--glass);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); overflow-x: auto; align-self: flex-start; max-width: 100%; }
+.kp-tab { appearance: none; border: 0; background: none; color: var(--warm-dim); font: 500 13px/1 var(--body); letter-spacing: .02em;
+  padding: 11px 18px; border-radius: 999px; cursor: pointer; white-space: nowrap; transition: color .25s, background .25s, box-shadow .25s; }
+.kp-tab:hover { color: var(--warm); }
+.kp-tab[aria-selected="true"] { color: #fff; background: linear-gradient(145deg, #8b5cf6, #6d28d9); box-shadow: 0 6px 22px var(--kp-purple-glow); }
+.kp-tab:focus-visible, .kp-btn:focus-visible, .kp-seg button:focus-visible { outline: 2px solid #c4b5fd; outline-offset: 2px; }
+
+/* sections + cards */
+.kp-sec { display: flex; flex-direction: column; gap: 22px; }
+.kp-h2 { margin: 0; font-family: var(--heading); font-weight: 400; font-size: clamp(22px, 2.6vw, 30px); letter-spacing: -.005em; }
+.kp-sub { margin: 0; color: var(--warm-dim); font-size: 13px; font-weight: 300; }
+.kp-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.kp-seg { display: inline-flex; border: 1px solid var(--glass-line); border-radius: 999px; padding: 3px; background: var(--glass); }
+.kp-seg button { appearance: none; border: 0; background: none; font: 500 12px/1 var(--body); padding: 8px 14px; border-radius: 999px; color: var(--warm-dim); cursor: pointer; }
+.kp-seg button[aria-pressed="true"] { background: var(--warm); color: var(--ink); }
+.kp-card, .kp-tw.kp-glass { background: var(--glass); border: 1px solid var(--glass-line); border-radius: 20px; padding: clamp(16px, 2.4vw, 26px);
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); display: flex; flex-direction: column; gap: 12px; min-width: 0;
+  transition: border-color .35s, background .35s; }
+.kp-card:hover { border-color: rgba(139,92,246,.28); background: rgba(244,240,234,.045); }
+.kp-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+.kp-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.kp-tile { background: var(--glass); border: 1px solid var(--glass-line); border-radius: 16px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; min-width: 0;
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); transition: border-color .3s, transform .3s; }
+.kp-tile:hover { border-color: rgba(139,92,246,.35); transform: translateY(-2px); }
+.kp-tile .l { font-size: 9px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: var(--stone); }
+.kp-tile .v { font-family: var(--heading); font-weight: 300; font-size: 32px; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.kp-tile .n { font-size: 12px; color: var(--warm-dim); font-weight: 300; }
+
+/* tables */
+.kp-tw { overflow-x: auto; }
+.kp-t { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 14px; }
+.kp-t th { text-align: left; font-size: 9px; color: var(--stone); font-weight: 500; text-transform: uppercase; letter-spacing: .22em; padding: 12px 12px; border-bottom: 1px solid var(--glass-line); white-space: nowrap; }
+.kp-t td { padding: 13px 12px; border-bottom: 1px solid rgba(244,240,234,.05); white-space: nowrap; }
+.kp-t tbody tr { transition: background .25s; }
+.kp-t td.wrap { white-space: normal; min-width: 220px; }
+.kp-t .num { text-align: right; }
+.kp-t th.sort { cursor: pointer; user-select: none; }
+.kp-t th.sort:hover { color: var(--warm); }
+.kp-t tbody tr.click { cursor: pointer; }
+.kp-t tbody tr.click:hover { background: linear-gradient(90deg, var(--kp-purple-soft), transparent 70%); }
+.kp-t td b { font-weight: 500; }
+.kp-pos { color: var(--color-ok); }
+.kp-neg { color: var(--color-bad); }
+.kp-mut { color: var(--warm-dim); }
+.kp-pill { display: inline-block; font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 999px; letter-spacing: .12em; }
+.kp-pill.w { background: rgba(57,255,20,.10); color: var(--kp-neon); box-shadow: 0 0 0 1px rgba(57,255,20,.22) inset; }
+.kp-pill.l { background: rgba(255,107,129,.10); color: var(--color-bad); box-shadow: 0 0 0 1px rgba(255,107,129,.22) inset; }
+.kp-pill.p { background: var(--glass); color: var(--warm-dim); box-shadow: 0 0 0 1px var(--glass-line) inset; }
+.kp-rank { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; background: var(--glass); border: 1px solid var(--glass-line); font: 500 12px/1 var(--body); color: var(--warm-dim); }
+.kp-rank.top { background: linear-gradient(145deg, #8b5cf6, #6d28d9); color: #fff; border-color: transparent; box-shadow: 0 4px 16px var(--kp-purple-glow); }
+
+/* charts */
+.kp-chart { position: relative; min-height: 280px; }
+.kp-chart svg text { fill: var(--warm-dim); font: 400 11px var(--body); }
+.kp-tip { position: absolute; pointer-events: none; background: rgba(27,23,36,.92); border: 1px solid var(--cds-border); box-shadow: var(--cds-shadow-popover);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 12px; padding: 10px 12px; font-size: 12px; white-space: nowrap; z-index: 3; color: var(--warm); }
+.kp-legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--warm-dim); }
+.kp-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 7px; vertical-align: -1px; }
+
+/* controls */
+.kp .dash-select { background-color: var(--ink-2); color: var(--warm); border-color: var(--glass-line); border-radius: 999px; }
+.kp-input { font: 400 14px var(--body); padding: 10px 16px; border: 1px solid var(--glass-line); border-radius: 999px; background-color: var(--ink-2); color: var(--warm); min-width: 0; flex: 1 1 220px; }
+.kp-input::placeholder { color: var(--stone); }
+.kp-input:focus { outline: none; border-color: rgba(139,92,246,.55); box-shadow: 0 0 0 4px var(--kp-purple-soft); }
+.kp-btn { appearance: none; font: 500 13px var(--body); padding: 11px 20px; border-radius: 999px; border: 1px solid var(--glass-line); background-color: var(--glass); color: var(--warm); cursor: pointer; transition: border-color .25s, box-shadow .25s; }
+.kp-btn:hover { border-color: rgba(139,92,246,.5); box-shadow: 0 0 24px var(--kp-purple-soft); }
+.kp-vs { font-family: var(--heading); font-style: italic; font-size: 26px; color: var(--stone); }
+.kp-cmp td.a, .kp-cmp td.b { text-align: right; }
+.kp-cmp td.win { font-weight: 600; }
+.kp-cmp td.win span::after { content: " ●"; color: var(--kp-neon); font-size: 8px; vertical-align: 3px; }
+.kp-note { font-size: 13px; color: var(--warm-dim); }
+.kp details { border-top: 1px solid var(--glass-line); padding-top: 18px; }
+.kp details summary { cursor: pointer; font: italic 400 18px var(--heading); color: var(--warm); }
+.kp details p, .kp details li { color: var(--warm-dim); max-width: 75ch; font-size: 13px; line-height: 1.7; font-weight: 300; }
+
+/* entry motion, once */
+@media (prefers-reduced-motion: no-preference) {
+  .kp-head > * { animation: kp-rise 1s cubic-bezier(.2,.7,.2,1) both; }
+  .kp-head > :nth-child(2) { animation-delay: .08s; } .kp-head > :nth-child(3) { animation-delay: .18s; } .kp-head > :nth-child(4) { animation-delay: .28s; }
+  .kp-tabs, .kp-sec { animation: kp-rise 1s .35s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes kp-rise { from { opacity: 0; transform: translateY(14px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+}
+@media (max-width: 520px) { .kp { border-radius: 16px; } .kp-stat { padding: 14px; } .kp-tabs { align-self: stretch; } }
+</style>
+
+
+<div class="kp">
+  <div class="kp-fx" data-draw="fx" aria-hidden="true"></div>
+  <header class="kp-head" id="top">
+    <span class="kp-over">Kiwi Parlays · VIP</span>
+    <div class="kp-brand"><span class="kp-k" aria-hidden="true">K</span><h1 class="kp-title">The VIP <em>Tracker</em></h1></div>
+    <p class="kp-lede"><b data-draw="hl-picks" data-source="capperStats" data-field="picks" data-where="capper=All%20VIP&amp;mode=all">—</b> graded VIP picks from <b data-draw="hl-cappers">—</b> cappers since <b data-draw="hl-since">—</b>. All VIP is <b data-draw="hl-record" data-source="capperStats" data-field="record" data-where="capper=All%20VIP&amp;mode=all">—</b> (<b data-draw="hl-win" data-source="capperStats" data-field="win_pct" data-where="capper=All%20VIP&amp;mode=all">—</b> win rate). <b data-draw="hl-leader">—</b> leads on net units.</p>
+    <div class="kp-statbar" id="statbar" data-draw="statbar"></div>
+  </header>
+
+  <nav class="kp-tabs" role="tablist" aria-label="Tracker views">
+    <button class="kp-tab" role="tab" data-tab="leaderboard" aria-selected="true">Capper ratings</button>
+    <button class="kp-tab" role="tab" data-tab="capper" aria-selected="false">Capper stats</button>
+    <button class="kp-tab" role="tab" data-tab="compare" aria-selected="false">Compare</button>
+    <button class="kp-tab" role="tab" data-tab="database" aria-selected="false">Full database</button>
+  </nav>
+
+  <!-- LEADERBOARD -->
+  <section class="kp-sec" id="leaderboard">
+    <div class="kp-row" style="justify-content: space-between;">
+      <div>
+        <h2 class="kp-h2">Capper ratings</h2>
+        <p class="kp-sub">Ranked by net units. Click a capper for their full profile.</p>
+      </div>
+      <div class="kp-seg" role="group" aria-label="Period">
+        <button data-period="all" aria-pressed="true">All time</button>
+        <button data-period="month" aria-pressed="false">This month</button>
+      </div>
+    </div>
+    <div class="kp-tw kp-glass" id="lb-all">
+      <table class="kp-t" data-source="capperStats" data-row-key="capper,mode">
+        <thead><tr>
+          <th>#</th><th data-field="capper">Capper</th><th class="num" data-field="picks">Picks</th><th data-field="record">Record</th>
+          <th class="num sort" data-field="win_pct" data-sort="win_pct">Win rate ↕</th><th class="num sort" data-field="net_units" data-sort="net_units">Net units ↕</th>
+          <th class="num sort" data-field="roi" data-sort="roi">ROI ↕</th><th class="num" data-field="priced">Priced</th><th class="num" data-field="last10">Last 10</th>
+        </tr></thead>
+        <tbody data-draw="lb-all"></tbody>
+      </table>
+    </div>
+    <div class="kp-tw kp-glass" id="lb-month" hidden>
+      <table class="kp-t" data-source="monthStats" data-row-key="capper,mode">
+        <thead><tr>
+          <th>#</th><th data-field="capper">Capper</th><th class="num" data-field="picks">Picks</th><th data-field="record">Record</th>
+          <th class="num sort" data-field="win_pct" data-sort="win_pct">Win rate ↕</th><th class="num sort" data-field="net_units" data-sort="net_units">Net units ↕</th>
+          <th class="num sort" data-field="roi" data-sort="roi">ROI ↕</th><th class="num" data-field="priced">Priced</th><th data-field="month">Month</th>
+        </tr></thead>
+        <tbody data-draw="lb-month"></tbody>
+      </table>
+    </div>
+    <div class="kp-card" id="lb-curve-card">
+      <h2 class="kp-h2">Cumulative profit</h2>
+      <p class="kp-sub">Running net units on priced picks, every capper. Point at a line for the value.</p>
+      <div class="kp-legend" data-draw="lb-legend"></div>
+      <div class="kp-chart" data-draw="lb-curve" data-source="curve"></div>
+    </div>
+  </section>
+
+  <!-- CAPPER PROFILE -->
+  <section class="kp-sec" id="capper" hidden>
+    <div class="kp-row">
+      <label for="cap-sel" class="kp-sub">Capper</label>
+      <select class="dash-select" id="cap-sel" data-draw="cap-sel" aria-label="Capper" data-source="capperStats"></select>
+    </div>
+    <p class="kp-lede" data-draw="cap-summary">—</p>
+    <div class="kp-tiles" data-draw="cap-tiles"></div>
+    <div class="kp-card">
+      <h2 class="kp-h2">Cumulative profit</h2>
+      <div class="kp-chart" data-draw="cap-curve" data-source="curve"></div>
+    </div>
+    <div class="kp-grid2">
+      <div class="kp-card"><h2 class="kp-h2">Performance by league</h2><div class="kp-tw" data-draw="cap-bd-sport"></div></div>
+      <div class="kp-card"><h2 class="kp-h2">Performance by bet type</h2><div class="kp-tw" data-draw="cap-bd-type"></div></div>
+      <div class="kp-card"><h2 class="kp-h2">Performance by position</h2><p class="kp-sub">FAV / DOG by price, OVER / UNDER by side, PARLAY for multi-leg.</p><div class="kp-tw" data-draw="cap-bd-pos"></div></div>
+      <div class="kp-card"><h2 class="kp-h2">Last 15 picks</h2><div class="kp-tw" data-draw="cap-recent"></div></div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="kp-sec" id="compare" hidden>
+    <div class="kp-row">
+      <select class="dash-select" id="cmp-a" data-draw="cmp-a" aria-label="First capper" data-source="capperStats"></select>
+      <span class="kp-vs">vs</span>
+      <select class="dash-select" id="cmp-b" data-draw="cmp-b" aria-label="Second capper" data-source="capperStats"></select>
+    </div>
+    <div class="kp-card">
+      <h2 class="kp-h2">Head to head</h2>
+      <div class="kp-tw" data-draw="cmp-table"></div>
+    </div>
+    <div class="kp-card">
+      <h2 class="kp-h2">Cumulative profit</h2>
+      <div class="kp-legend" data-draw="cmp-legend"></div>
+      <div class="kp-chart" data-draw="cmp-curve" data-source="curve"></div>
+    </div>
+  </section>
+
+  <!-- DATABASE -->
+  <section class="kp-sec" id="database" hidden>
+    <div>
+      <h2 class="kp-h2">Full database</h2>
+      <p class="kp-sub">Every graded VIP pick, newest first. Search a player, team or market.</p>
+    </div>
+    <div class="kp-row">
+      <input class="kp-input" id="db-q" type="search" placeholder="Search picks (e.g. Jokic, Rebounds, ML)" aria-label="Search picks">
+      <select class="dash-select" id="db-capper" data-draw="db-capper" aria-label="Capper" data-source="picks"></select>
+      <select class="dash-select" id="db-sport" data-draw="db-sport" aria-label="Sport" data-source="picks"></select>
+      <select class="dash-select" id="db-result" aria-label="Result">
+        <option value="">All results</option><option value="WIN">Wins</option><option value="LOSS">Losses</option><option value="PUSH">Pushes</option>
+      </select>
+    </div>
+    <p class="kp-sub" data-draw="db-count">—</p>
+    <div class="kp-tw kp-glass">
+      <table class="kp-t" data-source="picks" data-row-key="id">
+        <thead><tr><th data-field="date">Date</th><th data-field="capper">Capper</th><th data-field="sport">Sport</th><th data-field="pick">Pick</th>
+          <th class="num" data-field="odds">Odds</th><th class="num" data-field="units_risked">Units</th><th data-field="result">Result</th><th class="num" data-field="net_units">Net</th></tr></thead>
+        <tbody data-draw="db-body"></tbody>
+      </table>
+    </div>
+    <div class="kp-row"><button class="kp-btn" id="db-more">Show 50 more</button></div>
+  </section>
+
+  <details id="method">
+    <summary>How these stats are calculated</summary>
+    <ul>
+      <li>Record and win rate use every graded pick. Win rate = wins ÷ (wins + losses); pushes are left out.</li>
+      <li>Units follow the KP system: favourites risk enough to win 1U (−180 risks 1.80U), underdogs risk 1U. A stated stake (e.g. 5U) overrides that. Gaby is tracked at a flat 1U risked on every play (or the stake she stated); her few plays posted without a price use −110. Parlays are priced from the combined odds of every leg, so a stack of −1000 legs risks a lot to win 1U.</li>
+      <li>Prices, in order: odds posted with the pick; otherwise the closing line at the exact same number (FanDuel, DraftKings, BetMGM first; closing prices marked °); PrizePicks-style picks at −137 a leg.</li>
+      <li>Picks with no price at all are estimated at a flat 1U risked at −110 a leg (a 2-leg parlay at +264). Their odds are marked * in the database. WhizBang is left out of this: his unpriced plays are mostly heavy-chalk legs, and −110 would credit him units that never existed, so his unpriced picks count in the record only until real prices are loaded.</li>
+      <li>Grades come from the official box scores and are never changed once settled.</li>
+    </ul>
+  </details>
 </div>
-</main>
-<footer><div class="wrap">
-<p class="upd">Last updated Thu 19 Nov 2026, 12:50PM ET</p>
-<p>Graded picks only, from official final scores and box scores. Records are wins, losses and pushes. Pending, void and ungradable picks, and any pick posted after its game started, are not counted. Sorted by win percentage (a push counts neither way). Past results do not guarantee future results.</p>
-<p class="rg">21+ only. Please gamble responsibly.</p>
-<p>If gambling is causing harm, call 1-800-GAMBLER (US) or the Gambling Helpline 0800 654 655 (NZ).</p>
-</div></footer>
+
+<script>
+// ---------- shared helpers ----------
+window.KP = window.KP || { mode: 'all', capper: 'Kiwi', a: 'Kiwi', b: 'Sips', period: 'all', sortKey: 'net_units', sortDir: -1, q: '', fc: '', fs: '', fr: '', limit: 50 };
+KP.fmtU = (v) => v == null ? '—' : (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(2) + 'u';
+KP.fmtPct = (v) => v == null ? '—' : v.toFixed(1) + '%';
+KP.fmtRoi = (v) => v == null ? '—' : (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1) + '%';
+KP.fmtOdds = (o) => o == null || o === '' ? '—' : (+o > 0 ? '+' + (+o) : String(+o).replace('-', '−'));
+KP.cls = (v) => v == null ? 'kp-mut' : v > 0 ? 'kp-pos' : v < 0 ? 'kp-neg' : '';
+KP.fmtDate = d3.utcFormat('%-d %b %Y');
+KP.parseDate = d3.utcParse('%Y-%m-%d');
+KP.enc = (s) => encodeURIComponent(String(s));
+KP.mark = (tag, src, field, where, text, cls) => {
+  const e = document.createElement(tag);
+  e.dataset.source = src; e.dataset.field = field; if (where) e.dataset.where = where;
+  e.textContent = text; if (cls) e.className = cls; return e;
+};
+KP.el = (tag, text, cls) => { const e = document.createElement(tag); if (text != null) e.textContent = text; if (cls) e.className = cls; return e; };
+KP.pill = (r) => KP.el('span', r, 'kp-pill ' + (r === 'WIN' ? 'w' : r === 'LOSS' ? 'l' : 'p'));
+KP.palette = ['#a78bfa', '#39ff14', '#38bdf8', '#f472b6', '#fbbf24', '#fb7185', '#34d399', '#c4b5fd', '#60a5fa', '#fdba74'];
+KP.capperColor = (name, names) => { const i = names.indexOf(name); return name === 'All VIP' ? 'rgba(244,240,234,.55)' : KP.palette[i % KP.palette.length]; };
+
+// Line chart: series = [{name, color, points:[{date, cum}]}]
+KP.lineChart = (el, series, sourceIds) => {
+  el.replaceChildren();
+  const W = Math.max(280, el.clientWidth || 600), H = 280;
+  const all = series.flatMap((s) => s.points);
+  if (!all.length) { el.append(KP.el('p', 'No priced picks yet.', 'kp-note')); return; }
+  const x = d3.scaleUtc().domain(d3.extent(all, (p) => p.date)).range([0, 1]);
+  const yExt = d3.extent(all, (p) => p.cum); yExt[0] = Math.min(0, yExt[0]); yExt[1] = Math.max(0, yExt[1]);
+  const y = d3.scaleLinear().domain(yExt).nice().range([H - 26, 10]);
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('height', H).attr('role', 'img')
+    .attr('aria-label', 'Cumulative net units over time for ' + series.map((s) => s.name).join(', '));
+  const gy = svg.append('g');
+  gy.call(d3.axisLeft(y).ticks(5).tickSize(0).tickFormat((v) => (v > 0 ? '+' : '') + v + 'u'));
+  gy.select('.domain').remove();
+  let ml = 0; gy.selectAll('text').each(function () { ml = Math.max(ml, this.getComputedTextLength()); });
+  ml = Math.ceil(ml) + 10;
+  gy.attr('transform', `translate(${ml - 4},0)`);
+  x.range([ml, W - 12]);
+  svg.insert('g', ':first-child').selectAll('line').data(y.ticks(5)).join('line')
+    .attr('x1', ml).attr('x2', W - 12).attr('y1', (d) => y(d)).attr('y2', (d) => y(d))
+    .style('stroke', (d) => d === 0 ? 'var(--cds-chart-reference)' : 'var(--cds-chart-grid)');
+  const gx = svg.append('g').attr('transform', `translate(0,${H - 22})`)
+    .call(d3.axisBottom(x).ticks(Math.max(2, Math.floor(W / 110))).tickSize(0).tickFormat(d3.utcFormat('%b %y')));
+  gx.select('.domain').remove();
+  const line = d3.line().x((p) => x(p.date)).y((p) => y(p.cum));
+  if (series.length === 1 && series[0].points.length) {
+    const gid = 'kpg' + Math.random().toString(36).slice(2, 8);
+    const lg = svg.append('defs').append('linearGradient').attr('id', gid).attr('x1', 0).attr('x2', 0).attr('y1', 0).attr('y2', 1);
+    lg.append('stop').attr('offset', '0%').style('stop-color', series[0].color).style('stop-opacity', .28);
+    lg.append('stop').attr('offset', '100%').style('stop-color', series[0].color).style('stop-opacity', 0);
+    svg.append('path').datum(series[0].points).attr('d', d3.area().x((p) => x(p.date)).y0(y(0)).y1((p) => y(p.cum)))
+      .style('fill', `url(#${gid})`).style('stroke', 'none');
+  }
+  series.forEach((s) => {
+    svg.append('path').datum(s.points).attr('d', line).style('fill', 'none').style('stroke', s.color)
+      .style('stroke-width', s.name === 'All VIP' ? 1.5 : 2).style('stroke-dasharray', s.name === 'All VIP' ? '4 3' : null);
+    const last = s.points[s.points.length - 1];
+    if (last) svg.append('circle').attr('cx', x(last.date)).attr('cy', y(last.cum)).attr('r', 3.5).style('fill', s.color);
+  });
+  const tip = KP.el('div', null, 'kp-tip'); tip.hidden = true; el.append(tip);
+  const guide = svg.append('line').attr('y1', 10).attr('y2', H - 26).style('stroke', 'var(--cds-chart-axis)').style('display', 'none');
+  const bis = d3.bisector((p) => p.date).right;
+  svg.on('pointermove', (ev) => {
+    const [mx] = d3.pointer(ev); if (mx < ml) return;
+    const t = x.invert(mx);
+    const rows = series.map((s) => { const i = bis(s.points, t) - 1; return i >= 0 ? { s, p: s.points[i] } : null; }).filter(Boolean)
+      .sort((a, b) => b.p.cum - a.p.cum);
+    if (!rows.length) return;
+    guide.attr('x1', mx).attr('x2', mx).style('display', null);
+    tip.replaceChildren(KP.el('div', KP.fmtDate(t), 'kp-mut'));
+    rows.slice(0, 10).forEach(({ s, p }) => {
+      const r = KP.el('div'); const sw = KP.el('i'); sw.style.cssText = `display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;background:${s.color}`;
+      r.append(sw, s.name + '  ', KP.el('b', KP.fmtU(p.cum))); tip.append(r);
+    });
+    tip.hidden = false;
+    const tw = tip.offsetWidth; tip.style.left = Math.min(Math.max(0, mx + 12), W - tw) + 'px'; tip.style.top = '8px';
+  }).on('pointerleave', () => { tip.hidden = true; guide.style('display', 'none'); });
+};
+
+KP.curveSeries = (names) => {
+  const c = dash.data('curve'); if (c.status !== 'ok') return null;
+  const order = KP.allNames();
+  return names.map((n) => ({ name: n, color: KP.capperColor(n, order),
+    points: c.data.filter((r) => r.capper === n && r.mode === KP.mode).map((r) => ({ date: KP.parseDate(r.date), cum: r.cum_units })) }));
+};
+KP.allNames = () => { const s = dash.data('capperStats'); return s.status === 'ok' ? s.data.filter((r) => r.capper !== 'All VIP' && r.mode === 'real').map((r) => r.capper) : []; };
+KP.statRow = (n) => { const s = dash.data('capperStats'); return s.status === 'ok' ? s.data.find((r) => r.capper === n && r.mode === KP.mode) : null; };
+KP.w = (n) => 'capper=' + KP.enc(n) + '&mode=' + KP.mode;
+
+KP.bdTable = (el, dim) => {
+  const b = dash.data('breakdown');
+  if (b.status !== 'ok') { el.textContent = b.status === 'error' ? 'Couldn’t load this breakdown.' : '—'; return; }
+  const rows = b.data.filter((r) => r.capper === KP.capper && r.dim === dim && r.mode === KP.mode).sort((a, c) => c.picks - a.picks);
+  const t = KP.el('table', null, 'kp-t'); t.dataset.source = 'breakdown'; t.dataset.rowKey = 'key';
+  const hr = KP.el('tr');
+  [['Group', 'group'], ['Picks', 'picks', 1], ['Record', 'record'], ['Win rate', 'win_pct', 1], ['ROI', 'roi', 1], ['Net units', 'net_units', 1]].forEach(([l, f, n]) => {
+    const th = KP.el('th', l, n ? 'num' : ''); th.dataset.field = f; hr.append(th); });
+  const tb = KP.el('tbody');
+  rows.forEach((r) => {
+    const tr = KP.el('tr'); tr.dataset.key = r.key;
+    tr.append(KP.el('td', r.group), KP.el('td', r.picks, 'num'), KP.el('td', r.record), KP.el('td', KP.fmtPct(r.win_pct), 'num'),
+      KP.el('td', KP.fmtRoi(r.roi), 'num ' + KP.cls(r.roi)), KP.el('td', KP.fmtU(r.net_units), 'num ' + KP.cls(r.net_units)));
+    tb.append(tr);
+  });
+  t.append(KP.el('thead'), tb); t.firstChild.append(hr);
+  el.replaceChildren(rows.length ? t : KP.el('p', 'No picks in this group.', 'kp-note'));
+};
+</script>
+
+<script>
+// ---------- calculations (readers can open these in Sources) ----------
+// Every calc returns each row twice: mode "real" (net units and ROI from real prices only: posted odds, the exact
+// closing line, pick'em -137) and mode "all" (adds the flat 1U at -110 estimates for picks with no price).
+dash.calc('capperStats', {
+  inputs: ['picks'],
+  title: 'Capper stats (all time)',
+  description: 'Record, win rate, net units and ROI per capper and for all VIP picks, on real prices only and including -110 estimates.',
+  fn: (picks) => {
+    const agg = (rows) => {
+      const w = rows.filter((r) => r.result === 'WIN').length, l = rows.filter((r) => r.result === 'LOSS').length;
+      const pr = rows.filter((r) => r.net_units != null && r.result !== 'PUSH');
+      const net = pr.reduce((a, r) => a + r.net_units, 0), risk = pr.reduce((a, r) => a + r.units_risked, 0);
+      const recent = rows.slice().sort((a, b) => b.date < a.date ? -1 : b.date > a.date ? 1 : a.id - b.id).filter((r) => r.result !== 'PUSH').slice(0, 10);
+      const rw = recent.filter((r) => r.result === 'WIN').length;
+      return { picks: rows.length, wins: w, losses: l, pushes: rows.length - w - l, record: `${w}-${l}`,
+        win_pct: w + l ? Math.round(1000 * w / (w + l)) / 10 : null, priced: pr.length,
+        risked: Math.round(risk * 100) / 100, net_units: Math.round(net * 100) / 100,
+        roi: risk ? Math.round(1000 * net / risk) / 10 : null, last10: `${rw}-${recent.length - rw}`,
+        first: rows.reduce((m, r) => r.date < m ? r.date : m, '9999'), last: rows.reduce((m, r) => r.date > m ? r.date : m, '0000') };
+    };
+    const names = [...new Set(picks.map((r) => r.capper))];
+    const out = [];
+    ['real', 'all'].forEach((mode) => {
+      const P = mode === 'real' ? picks.map((r) => r.odds_source === 'assumed -110' ? { ...r, net_units: null, units_risked: null } : r) : picks;
+      names.forEach((n) => out.push({ capper: n, mode, ...agg(P.filter((r) => r.capper === n)) }));
+      out.push({ capper: 'All VIP', mode, ...agg(P) });
+    });
+    return out;
+  },
+});
+
+dash.calc('monthStats', {
+  inputs: ['picks'],
+  title: 'Capper stats (latest month)',
+  description: 'The same stats for the most recent calendar month in the tracker, real prices only and including estimates.',
+  fn: (picks) => {
+    const month = picks.reduce((m, r) => r.date.slice(0, 7) > m ? r.date.slice(0, 7) : m, '');
+    const agg = (rs) => {
+      const w = rs.filter((r) => r.result === 'WIN').length, l = rs.filter((r) => r.result === 'LOSS').length;
+      const pr = rs.filter((r) => r.net_units != null && r.result !== 'PUSH');
+      const net = pr.reduce((a, r) => a + r.net_units, 0), risk = pr.reduce((a, r) => a + r.units_risked, 0);
+      return { picks: rs.length, record: `${w}-${l}`, win_pct: w + l ? Math.round(1000 * w / (w + l)) / 10 : null, priced: pr.length,
+        net_units: Math.round(net * 100) / 100, roi: risk ? Math.round(1000 * net / risk) / 10 : null };
+    };
+    const out = [];
+    ['real', 'all'].forEach((mode) => {
+      const P = (mode === 'real' ? picks.map((r) => r.odds_source === 'assumed -110' ? { ...r, net_units: null, units_risked: null } : r) : picks)
+        .filter((r) => r.date.slice(0, 7) === month);
+      [...new Set(P.map((r) => r.capper))].forEach((n) => out.push({ capper: n, mode, month, ...agg(P.filter((r) => r.capper === n)) }));
+      out.push({ capper: 'All VIP', mode, month, ...agg(P) });
+    });
+    return out;
+  },
+});
+
+dash.calc('breakdown', {
+  inputs: ['picks'],
+  title: 'Performance by league, bet type and position',
+  description: 'Each capper (and All VIP) split by sport, bet type and position, real prices only and including estimates.',
+  fn: (picks) => {
+    const out = [];
+    const dims = { sport: 'sport', type: 'bet_type', position: 'position' };
+    const names = [...new Set(picks.map((r) => r.capper))].concat('All VIP');
+    ['real', 'all'].forEach((mode) => {
+      const P = mode === 'real' ? picks.map((r) => r.odds_source === 'assumed -110' ? { ...r, net_units: null, units_risked: null } : r) : picks;
+      names.forEach((n) => {
+        const mine = n === 'All VIP' ? P : P.filter((r) => r.capper === n);
+        Object.entries(dims).forEach(([dim, col]) => {
+          [...new Set(mine.map((r) => r[col]))].forEach((g) => {
+            const rs = mine.filter((r) => r[col] === g);
+            const w = rs.filter((r) => r.result === 'WIN').length, l = rs.filter((r) => r.result === 'LOSS').length;
+            const pr = rs.filter((r) => r.net_units != null && r.result !== 'PUSH');
+            const net = pr.reduce((a, r) => a + r.net_units, 0), risk = pr.reduce((a, r) => a + r.units_risked, 0);
+            out.push({ key: `${n}|${dim}|${g}|${mode}`, capper: n, mode, dim, group: g, picks: rs.length, record: `${w}-${l}`,
+              win_pct: w + l ? Math.round(1000 * w / (w + l)) / 10 : null, priced: pr.length,
+              net_units: Math.round(net * 100) / 100, roi: risk ? Math.round(1000 * net / risk) / 10 : null });
+          });
+        });
+      });
+    });
+    return out;
+  },
+});
+
+dash.calc('curve', {
+  inputs: ['picks'],
+  title: 'Cumulative net units by day',
+  description: 'Running total of net units per capper and for All VIP, real prices only and including estimates.',
+  fn: (picks) => {
+    const out = [];
+    ['real', 'all'].forEach((mode) => {
+      const pr = picks.filter((r) => r.net_units != null && (mode === 'all' || r.odds_source !== 'assumed -110'));
+      const names = [...new Set(pr.map((r) => r.capper))].concat('All VIP');
+      names.forEach((n) => {
+        const byDay = d3.rollup(n === 'All VIP' ? pr : pr.filter((r) => r.capper === n), (v) => d3.sum(v, (r) => r.net_units), (r) => r.date);
+        let cum = 0;
+        [...byDay.keys()].sort().forEach((d) => { cum += byDay.get(d); out.push({ capper: n, mode, date: d, cum_units: Math.round(cum * 100) / 100 }); });
+      });
+    });
+    return out;
+  },
+});
+</script>
+
+<script>
+// ---------- headline ----------
+dash.draw('hl-picks', (el) => { const r = KP.statRow('All VIP'); el.textContent = r ? String(r.picks) : '—'; });
+dash.draw('hl-cappers', (el) => { const n = KP.allNames(); el.textContent = n.length ? n.length : '—'; });
+dash.draw('hl-since', (el) => { const r = KP.statRow('All VIP'); el.textContent = r ? KP.fmtDate(KP.parseDate(r.first)) : '—'; });
+dash.draw('hl-record', (el) => { const r = KP.statRow('All VIP'); el.textContent = r ? r.record : '—'; });
+dash.draw('hl-win', (el) => { const r = KP.statRow('All VIP'); el.textContent = r ? KP.fmtPct(r.win_pct) : '—'; });
+dash.draw('hl-leader', (el) => {
+  const s = dash.data('capperStats');
+  if (s.status !== 'ok') { el.textContent = '—'; return; }
+  const top = s.data.filter((r) => r.capper !== 'All VIP' && r.mode === KP.mode && r.priced >= 20).sort((a, b) => b.net_units - a.net_units)[0];
+  if (!top) { el.textContent = '—'; return; }
+  el.replaceChildren(KP.mark('span', 'capperStats', 'capper', KP.w(top.capper), top.capper), ' (',
+    KP.mark('span', 'capperStats', 'net_units', KP.w(top.capper), KP.fmtU(top.net_units)), ')');
+});
+
+// ---------- leaderboard ----------
+const lbDraw = (src, extra) => (tb) => {
+  const s = dash.data(src);
+  if (s.status !== 'ok') {
+    tb.replaceChildren(); if (s.status === 'error') { const tr = KP.el('tr'); const td = KP.el('td', 'Couldn’t load the ratings.'); td.colSpan = 9; tr.append(td); tb.append(tr); }
+    return;
+  }
+  const k = KP.sortKey, d = KP.sortDir;
+  const rows = s.data.filter((r) => r.capper !== 'All VIP' && r.mode === KP.mode).sort((a, b) => ((a[k] ?? -1e9) - (b[k] ?? -1e9)) * d);
+  rows.push(s.data.find((r) => r.capper === 'All VIP' && r.mode === KP.mode));
+  tb.replaceChildren(...rows.filter(Boolean).map((r, i) => {
+    const tr = KP.el('tr', null, r.capper === 'All VIP' ? '' : 'click'); tr.dataset.key = KP.enc(r.capper) + ',' + r.mode;
+    const rank = r.capper === 'All VIP' ? KP.el('span', '') : KP.el('span', i + 1, 'kp-rank' + (i === 0 ? ' top' : ''));
+    const nm = KP.el('td'); const b = KP.el('b', r.capper); nm.append(b);
+    tr.append(Object.assign(KP.el('td'), {}), nm, KP.el('td', r.picks, 'num'), KP.el('td', r.record), KP.el('td', KP.fmtPct(r.win_pct), 'num'),
+      KP.el('td', KP.fmtU(r.net_units), 'num ' + KP.cls(r.net_units)), KP.el('td', KP.fmtRoi(r.roi), 'num ' + KP.cls(r.roi)),
+      KP.el('td', `${r.priced}/${r.picks}`, 'num kp-mut'), KP.el('td', extra(r), extra === lbMonth ? '' : 'num'));
+    tr.firstChild.append(rank);
+    if (r.capper !== 'All VIP') tr.onclick = () => KP.openCapper(r.capper);
+    return tr;
+  }));
+};
+const lbMonth = (r) => r.month;
+dash.draw('lb-all', lbDraw('capperStats', (r) => r.last10));
+dash.draw('lb-month', lbDraw('monthStats', lbMonth));
+document.querySelectorAll('.kp-t th[data-sort]').forEach((th) => th.addEventListener('click', () => {
+  const k = th.dataset.sort; KP.sortDir = KP.sortKey === k ? -KP.sortDir : -1; KP.sortKey = k;
+  dash.draw('lb-all'); dash.draw('lb-month');
+}));
+document.querySelectorAll('[data-period]').forEach((b) => b.addEventListener('click', () => {
+  KP.period = b.dataset.period;
+  document.querySelectorAll('[data-period]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  document.querySelectorAll('#lb-all').forEach((e) => { e.hidden = KP.period !== 'all'; });
+  document.querySelectorAll('#lb-month').forEach((e) => { e.hidden = KP.period !== 'month'; });
+}));
+dash.draw('lb-legend', (el) => {
+  const names = KP.allNames(); el.replaceChildren(...names.concat('All VIP').map((n) => {
+    const s = KP.el('span'); const i = KP.el('i'); i.style.background = KP.capperColor(n, names); s.append(i, n); return s; }));
+});
+dash.draw('lb-curve', (el) => {
+  const s = KP.curveSeries(KP.allNames().concat('All VIP'));
+  if (!s) { el.replaceChildren(KP.el('p', dash.data('curve').status === 'error' ? 'Couldn’t load the profit chart.' : '—', 'kp-note')); return; }
+  KP.lineChart(el, s);
+});
+
+// ---------- capper profile ----------
+const capSelect = (key, after) => (sel) => {
+  const names = KP.allNames();
+  sel.replaceChildren(...names.map((n) => new Option(n, n)));
+  sel.value = KP[key];
+  sel.onchange = () => { KP[key] = sel.value; after(); };
+};
+dash.draw('cap-sel', capSelect('capper', () => ['cap-summary', 'cap-tiles', 'cap-curve', 'cap-bd-sport', 'cap-bd-type', 'cap-bd-pos', 'cap-recent', 'cap-sel'].forEach((d) => dash.draw(d))));
+dash.draw('cap-summary', (el) => {
+  const r = KP.statRow(KP.capper); if (!r) { el.textContent = '—'; return; }
+  const w = KP.w(r.capper);
+  el.replaceChildren('The tracker has ', KP.mark('b', 'capperStats', 'picks', w, r.picks), ' graded picks from ', KP.el('b', r.capper),
+    ' between ', KP.el('b', KP.fmtDate(KP.parseDate(r.first))), ' and ', KP.el('b', KP.fmtDate(KP.parseDate(r.last))), ': a ',
+    KP.mark('b', 'capperStats', 'record', w, r.record), ' record, ', KP.mark('b', 'capperStats', 'win_pct', w, KP.fmtPct(r.win_pct)),
+    ' win rate, ', KP.mark('b', 'capperStats', 'net_units', w, KP.fmtU(r.net_units)), ' and ', KP.mark('b', 'capperStats', 'roi', w, KP.fmtRoi(r.roi)),
+    ' ROI on ', KP.mark('b', 'capperStats', 'priced', w, r.priced), ' picks in units.');
+});
+dash.draw('cap-tiles', (el) => {
+  const r = KP.statRow(KP.capper); if (!r) { el.replaceChildren(); return; }
+  const w = KP.w(r.capper);
+  const tile = (label, field, text, note, cls) => { const t = KP.el('div', null, 'kp-tile');
+    t.append(KP.el('span', label, 'l'), KP.mark('span', 'capperStats', field, w, text, 'v ' + (cls || '')), KP.el('span', note, 'n')); return t; };
+  el.replaceChildren(
+    tile('Tracked picks', 'picks', r.picks, `${r.pushes} push${r.pushes === 1 ? '' : 'es'}`),
+    tile('Record', 'record', r.record, 'wins-losses'),
+    tile('Win rate', 'win_pct', KP.fmtPct(r.win_pct), 'excl. pushes'),
+    tile('Net units', 'net_units', KP.fmtU(r.net_units), `${r.priced} picks in units`, KP.cls(r.net_units)),
+    tile('ROI', 'roi', KP.fmtRoi(r.roi), `on ${r.risked.toFixed(1)}u risked`, KP.cls(r.roi)),
+    tile('Last 10', 'last10', r.last10, 'most recent decisions'));
+});
+dash.draw('cap-curve', (el) => {
+  const s = KP.curveSeries([KP.capper]);
+  if (!s) { el.replaceChildren(KP.el('p', '—', 'kp-note')); return; }
+  s[0].color = '#a78bfa'; KP.lineChart(el, s);
+});
+dash.draw('cap-bd-sport', (el) => KP.bdTable(el, 'sport'));
+dash.draw('cap-bd-type', (el) => KP.bdTable(el, 'type'));
+dash.draw('cap-bd-pos', (el) => KP.bdTable(el, 'position'));
+dash.draw('cap-recent', (el) => {
+  const p = dash.data('picks'); if (p.status !== 'ok') { el.textContent = '—'; return; }
+  const rows = p.data.filter((r) => r.capper === KP.capper).slice(0, 15);
+  const t = KP.el('table', null, 'kp-t'); t.dataset.source = 'picks'; t.dataset.rowKey = 'id';
+  const hr = KP.el('tr'); [['Date', 'date'], ['Pick', 'pick'], ['Odds', 'odds', 1], ['Result', 'result'], ['Net', 'net_units', 1]].forEach(([l, f, n]) => {
+    const th = KP.el('th', l, n ? 'num' : ''); th.dataset.field = f; hr.append(th); });
+  const tb = KP.el('tbody');
+  rows.forEach((r) => { const tr = KP.el('tr');
+    const pr = KP.el('td'); pr.append(KP.pill(r.result));
+    tr.append(KP.el('td', d3.utcFormat('%-d %b')(KP.parseDate(r.date))), KP.el('td', r.pick || '(no text)', 'wrap'), KP.el('td', KP.fmtOdds(r.odds), 'num'), pr,
+      KP.el('td', KP.fmtU(r.net_units), 'num ' + KP.cls(r.net_units))); tb.append(tr); });
+  const th = KP.el('thead'); th.append(hr); t.append(th, tb); el.replaceChildren(t);
+});
+KP.openCapper = (n) => { KP.capper = n; KP.showTab('capper');
+  ['cap-sel', 'cap-summary', 'cap-tiles', 'cap-curve', 'cap-bd-sport', 'cap-bd-type', 'cap-bd-pos', 'cap-recent'].forEach((d) => dash.draw(d)); };
+
+// ---------- compare ----------
+const cmpRedraw = () => ['cmp-a', 'cmp-b', 'cmp-table', 'cmp-legend', 'cmp-curve'].forEach((d) => dash.draw(d));
+dash.draw('cmp-a', capSelect('a', cmpRedraw));
+dash.draw('cmp-b', capSelect('b', cmpRedraw));
+dash.draw('cmp-table', (el) => {
+  const A = KP.statRow(KP.a), B = KP.statRow(KP.b); if (!A || !B) { el.textContent = '—'; return; }
+  const t = KP.el('table', null, 'kp-t kp-cmp');
+  const hr = KP.el('tr'); hr.append(KP.el('th', 'Metric'), KP.el('th', A.capper, 'num'), KP.el('th', B.capper, 'num'));
+  const rows = [['Tracked picks', 'picks', (v) => v, 0], ['Record', 'record', (v) => v, 0], ['Win rate', 'win_pct', KP.fmtPct, 1],
+    ['Net units', 'net_units', KP.fmtU, 1], ['ROI', 'roi', KP.fmtRoi, 1], ['Priced picks', 'priced', (v) => v, 0], ['Last 10', 'last10', (v) => v, 0]];
+  const tb = KP.el('tbody');
+  rows.forEach(([label, f, fmt, better]) => {
+    const tr = KP.el('tr'); tr.append(KP.el('td', label));
+    [A, B].forEach((R, i) => {
+      const O = i ? A : B; const td = KP.el('td', null, i ? 'b' : 'a');
+      if (better && R[f] != null && O[f] != null && R[f] > O[f]) td.classList.add('win');
+      td.append(KP.mark('span', 'capperStats', f, KP.w(R.capper), fmt(R[f]), ['net_units', 'roi'].includes(f) ? KP.cls(R[f]) : ''));
+      tr.append(td);
+    });
+    tb.append(tr);
+  });
+  const th = KP.el('thead'); th.append(hr); t.append(th, tb); el.replaceChildren(t);
+});
+dash.draw('cmp-legend', (el) => { const names = KP.allNames();
+  el.replaceChildren(...[KP.a, KP.b].map((n) => { const s = KP.el('span'); const i = KP.el('i'); i.style.background = KP.capperColor(n, names); s.append(i, n); return s; })); });
+dash.draw('cmp-curve', (el) => {
+  const s = KP.curveSeries(KP.a === KP.b ? [KP.a] : [KP.a, KP.b]);
+  if (!s) { el.replaceChildren(KP.el('p', '—', 'kp-note')); return; }
+  KP.lineChart(el, s);
+});
+
+// ---------- database ----------
+const optDraw = (key, col, allLabel) => (sel) => {
+  const p = dash.data('picks'); const vals = p.status === 'ok' ? [...new Set(p.data.map((r) => r[col]))].sort() : [];
+  sel.replaceChildren(new Option(allLabel, ''), ...vals.map((v) => new Option(v, v)));
+  sel.value = KP[key];
+  sel.onchange = () => { KP[key] = sel.value; KP.limit = 50; dash.draw('db-body'); dash.draw('db-count'); };
+};
+dash.draw('db-capper', optDraw('fc', 'capper', 'All cappers'));
+dash.draw('db-sport', optDraw('fs', 'sport', 'All sports'));
+KP.filtered = () => {
+  const p = dash.data('picks'); if (p.status !== 'ok') return null;
+  const q = KP.q.trim().toLowerCase();
+  return p.data.filter((r) => (!KP.fc || r.capper === KP.fc) && (!KP.fs || r.sport === KP.fs) && (!KP.fr || r.result === KP.fr) &&
+    (!q || (r.pick || '').toLowerCase().includes(q) || r.capper.toLowerCase().includes(q)));
+};
+dash.draw('db-count', (el) => {
+  const f = KP.filtered(); if (!f) { el.textContent = dash.data('picks').status === 'error' ? 'Couldn’t load the picks.' : '—'; return; }
+  const w = f.filter((r) => r.result === 'WIN').length, l = f.filter((r) => r.result === 'LOSS').length;
+  const net = d3.sum(f, (r) => (KP.mode === 'real' && r.odds_source === 'assumed -110') ? 0 : (r.net_units || 0));
+  el.textContent = `${f.length.toLocaleString()} picks · ${w}-${l}${w + l ? ` (${(100 * w / (w + l)).toFixed(1)}%)` : ''} · ${KP.fmtU(Math.round(net * 100) / 100)} in units · showing ${Math.min(KP.limit, f.length)}`;
+});
+dash.draw('db-body', (tb) => {
+  const f = KP.filtered(); if (!f) { tb.replaceChildren(); return; }
+  tb.replaceChildren(...f.slice(0, KP.limit).map((r) => {
+    const tr = KP.el('tr'); tr.dataset.key = r.id;
+    const res = KP.el('td'); res.append(KP.pill(r.result));
+    const odds = KP.el('td', KP.fmtOdds(r.odds), 'num'); if (r.odds_source && r.odds_source !== 'posted') odds.title = r.odds_source;
+    if (r.odds_source === 'closing line') odds.textContent += '°';
+    if (r.odds_source === 'assumed -110' || r.odds_source === 'slate estimate') odds.textContent += '*';
+    tr.append(KP.el('td', d3.utcFormat('%-d %b %y')(KP.parseDate(r.date))), KP.el('td', r.capper), KP.el('td', r.sport), KP.el('td', r.pick || '(no text)', 'wrap'),
+      odds, KP.el('td', r.units_risked == null ? '—' : r.units_risked.toFixed(2) + 'u', 'num'), res, KP.el('td', KP.fmtU(r.net_units), 'num ' + KP.cls(r.net_units)));
+    return tr;
+  }));
+});
+document.querySelectorAll('#db-q').forEach((i) => i.addEventListener('input', () => { KP.q = i.value; KP.limit = 50; dash.draw('db-body'); dash.draw('db-count'); }));
+document.querySelectorAll('#db-result').forEach((s) => s.addEventListener('change', () => { KP.fr = s.value; KP.limit = 50; dash.draw('db-body'); dash.draw('db-count'); }));
+document.querySelectorAll('#db-more').forEach((b) => b.addEventListener('click', () => { KP.limit += 50; dash.draw('db-body'); dash.draw('db-count'); }));
+
+// ---------- ambient particles (decorative, off when motion is reduced) ----------
+dash.draw('fx', {
+  mount(el) {
+    const c = document.createElement('canvas'); el.append(c);
+    const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const ctx = c.getContext('2d'); let W = 0, H = 0, raf = 0;
+    const dots = Array.from({ length: 42 }, () => ({ x: Math.random(), y: Math.random(), r: .3 + Math.random() * 1.5,
+      vx: (Math.random() - .5) * .00012, vy: -(.00004 + Math.random() * .00012), a: .05 + Math.random() * .3, hue: Math.random() < .25 }));
+    const size = () => { const d = Math.min(2, window.devicePixelRatio || 1); W = el.clientWidth; H = el.clientHeight; c.width = W * d; c.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); };
+    const frame = () => {
+      if (c.width !== Math.round(el.clientWidth * Math.min(2, window.devicePixelRatio || 1))) size();
+      ctx.clearRect(0, 0, W, H);
+      dots.forEach((p) => { if (!reduce) { p.x = (p.x + p.vx + 1) % 1; p.y = (p.y + p.vy + 1) % 1; }
+        ctx.beginPath(); ctx.arc(p.x * W, p.y * H, p.r, 0, 6.283); ctx.fillStyle = p.hue ? `rgba(167,139,250,${p.a})` : `rgba(244,240,234,${p.a})`; ctx.fill(); });
+      if (!reduce) raf = requestAnimationFrame(frame);
+    };
+    size(); frame();
+    return { stop: () => cancelAnimationFrame(raf) };
+  },
+  update() {},
+  unmount(el, made) { made && made.stop(); },
+});
+
+// ---------- hero stat bar (counts up once) ----------
+KP.counted = false;
+dash.draw('statbar', (el) => {
+  const r = KP.statRow('All VIP');
+  if (!r) { el.replaceChildren(); el.classList.add('dash-skeleton'); return; }
+  el.classList.remove('dash-skeleton');
+  const w = KP.w('All VIP');
+  const items = [['Graded picks', 'picks', r.picks, (v) => String(Math.round(v))],
+    ['Record', 'record', null, () => r.record],
+    ['Win rate', 'win_pct', r.win_pct, (v) => v.toFixed(1) + '%'],
+    ['Net units', 'net_units', r.net_units, (v) => KP.fmtU(Math.round(v * 100) / 100)],
+    ['ROI', 'roi', r.roi, (v) => KP.fmtRoi(Math.round(v * 10) / 10)]];
+  const vals = [];
+  el.replaceChildren(...items.map(([label, f, target, fmt]) => {
+    const d = KP.el('div', null, 'kp-stat'); d.id = 'stat-' + f;
+    const v = KP.mark('span', 'capperStats', f, w, fmt(target ?? 0), 'v ' + (['net_units', 'roi'].includes(f) ? KP.cls(r[f]) : ''));
+    d.append(KP.el('span', label, 'l'), v); vals.push([v, target, fmt]); return d;
+  }));
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (KP.counted || reduce) return;
+  KP.counted = true;
+  const t0 = performance.now();
+  const step = (t) => { const k = Math.min(1, (t - t0) / 1400), e = 1 - Math.pow(1 - k, 3);
+    vals.forEach(([v, target, fmt]) => { if (target != null) v.textContent = fmt(target * e); });
+    if (k < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+});
+
+// ---------- tabs ----------
+KP.showTab = (id) => {
+  document.querySelectorAll('.kp-tab').forEach((t) => t.setAttribute('aria-selected', String(t.dataset.tab === id)));
+  ['leaderboard', 'capper', 'compare', 'database'].forEach((s) => document.querySelectorAll('#' + s).forEach((e) => { e.hidden = s !== id; }));
+  dash.setLink(id);
+  ['lb-curve','cap-curve','cmp-curve'].forEach((d) => dash.draw(d));
+};
+let KPrt; window.addEventListener('resize', () => { clearTimeout(KPrt); KPrt = setTimeout(() => ['lb-curve','cap-curve','cmp-curve'].forEach((d) => dash.draw(d)), 200); });
+document.querySelectorAll('.kp-tab').forEach((t) => t.addEventListener('click', () => KP.showTab(t.dataset.tab)));
+const h = (location.hash || '').slice(1);
+if (['leaderboard', 'capper', 'compare', 'database'].includes(h)) KP.showTab(h);
+</script>
+
+<p class="kp-upd" id="kp-upd"></p>
+<script>dash.boot('data.json');</script>
 </body></html>
